@@ -1,3 +1,4 @@
+//Ask the name of the buyer and storre ii into "buyer"
 const getName = (name) => {
     name = prompt("Whats your name?");
     if (name != "") {
@@ -7,36 +8,41 @@ const getName = (name) => {
         getName();
     }
 }
-
 let buyer = getName();
 
-const purchase = (selection) => {
-    alert(`selected 1 ${products[selection - 1].name} whith a price of ${products[selection - 1].price}\n`);
-    subTotal += (products[selection - 1].price);
-    myPurchase.push(products[selection - 1].name);
-    selectProducts();
-}
 
+const purchase = (selection) => {
+    alert(`selected 1 ${products[selection - 1].name} whith a price of ${products[selection - 1].price}\n`); //Alert the product selected
+    subTotal += (products[selection - 1].price);    //Add the prodect price to "subtotal"
+    myPurchase.push(products[selection - 1].name);      //Push the selected product to myPurchase array.
+    selectProducts();   
+}
 let myPurchase = []
 
 const products = [
-    { name: "T-Shirt", price: 15 },
-    { name: "Sweater", price: 30 },
-    { name: "Jacket", price: 90 },
-    { name: "Shorts", price: 20 },
-    { name: "Jeans", price: 60 },
-    { name: "Sandals", price: 40 },
-    { name: "Shoes", price: 80 },
-    { name: "Boots", price: 150 }
+    { option: 1, name: "T-Shirt", price: 15 },
+    { option: 2, name: "Sweater", price: 30 },
+    { option: 3, name: "Jacket", price: 90 },
+    { option: 4, name: "Shorts", price: 20 },
+    { option: 5, name: "Jeans", price: 60 },
+    { option: 6, name: "Sandals", price: 40 },
+    { option: 7, name: "Shoes", price: 80 },
+    { option: 8, name: "Boots", price: 150 }
 ]
+
+//Iterate through products to show them in the prompt of selectProducts
+let showProducts = products.map(function show(items) {
+    return `\n${items.option} - ${items.name} - ${items.price}`;
+});
 
 let subTotal = 0;
 let tax = 1.21;
 let total = 0;
 
+//Alert the products to start
 const selectProducts = () => {
-    let selection = Number(prompt(`Select your product \n1. ${products[0].name} - price: ${products[0].price} \n2. ${products[1].name} - price: ${products[1].price} \n3. ${products[2].name} - price: ${products[2].price} \n4. ${products[3].name} - price: ${products[3].price} \n5. ${products[4].name} - price: ${products[4].price} \n6. ${products[5].name} - price: ${products[5].price} \n7. ${products[6].name} - price: ${products[6].price} \n8. ${products[7].name} - price: ${products[7].price} \n9. Stop shoping`));
-    if (selection > 0 && selection < products.length) {
+    let selection = Number(prompt(`Select your product \n${showProducts} \n9. Stop shoping`));
+    if (selection > 0 && selection < products.length+1) {
         purchase(selection);
     } else if (selection == 9) {
         alert(`Purchase ended`);
